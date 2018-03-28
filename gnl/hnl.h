@@ -3,6 +3,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <unistd.h>
-# define BUFSIZE 42
+# define BUFF_SIZE 42
 
 #endif
