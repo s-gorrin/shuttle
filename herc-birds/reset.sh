@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rm TESTgitignore
+rm TESTgitignore Makefile
 rm -rf libft lib src inc
