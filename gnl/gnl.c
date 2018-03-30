@@ -1,39 +1,40 @@
 #inlcude "hnl.h"
+
 /*
-char	*buffer(int fd)
-{
-	int		ret;
-	int		i;
-	static int	iter;
-	static char	buf[BUFSIZE + 1];
-	static char	*line;
+read thorught storeage until new line, or end, and memcpy that place onto line.
+If there was a newline, return that much.
+If i = strlen(stor) -> read more and concat onto storage
+keep going thoruhg store: 
 
-	i = 0;
-	iter = 1;
+Only static var should be storage space.
 
-	if ((ret = read(fd, buf, BUFSIZE)) < 0)
-	{
-		write(2, "Failed to read file.\n", 21);
-		return (NULL);
-	}
-	str = (char *)malloc(sizeof(*str) * (BUFSIZE * iter);
-	while (i < ret && buf[i] != '\n')
-		i++;
-	if (i == ret)			//  maybe helper function?
-		memcpy(str, buf, ret);
-	else
-		write(1, buf, i);
+PROBABLY BEST HOW-TO:
+first: check and see if there's anything in storage
+step through storage to newline, and memcpy that amount to line
+shift place after \n to beginning of storage
+return
+if there is no storage or storage contains no newline,
+	write all of storage to line and then erace storage, then
+	read BUFF_SIZE more characters and append to storage
+	read storage again until \n and do as above. 
+	if no \n, repeat previous steps.
 
-}*/
+Use linked list (or array if that's too hard) of fd's for multiple files
+*/
+
 
 int	get_next_line(const int fd, char **line)
 {
 	int			ret;
-	static int	i;
+	int			i;
 	int			j;
 	char		buf[BUFF_SIZE + 1];
+	static char	*storage;
 
 	j = i;
+	if (!line)
+		return (-1);
+	*line = NULL;
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 	{
 		if (ret == -1)
@@ -42,7 +43,7 @@ int	get_next_line(const int fd, char **line)
 			j++;
 		if (buf[j] == '\n')
 		{
-			memcpy(line, (buf + i), (j - i));
+			memcpy(*line, (buf + i), (j - i));
 			i = j + 1;
 			return (1);
 		}
