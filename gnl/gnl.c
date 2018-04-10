@@ -23,30 +23,33 @@ Use linked list (or array if that's too hard) of fd's for multiple files
 Make storage stuff a helper function so it can be called later in GNL
 */
 
-static int	shipping(char *storage, char **line, size_t i, int ret)
+static int	shipping(char **storage, char **line, size_t i, int ret)
 {
 	size_t	len;
 
-	while (storage[i] != '\0')
+	if (line[0] == '\0')
+		*line = "";
+	while ((*storage)[i] != '\0')
 	{
-		if (storage[i] == '\n' || (ret && ret == 0))
+		if ((*storage)[i] == '\n' || ret == 0)
 		{
-			if (line[0] == '\0')
-				*line = "";
-			*line = ft_strnjoin((const char*)*line, (const char*)storage, i);
+			*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
 			//ft_memcpy(*line + ft_strlen(*line), storage, i - 1);
 			i++;
-			len = ft_strlen(storage + i);
-			ft_memmove(storage, storage + i, len - 1);
-			storage[len] = '\0';
+			len = ft_strlen(*storage + i);
+			ft_memmove(*storage, *storage + i, len); //(len - 1)
+			(*storage)[len] = '\0';
 			return (1);
 		}
 		i++;
 	}
-	if (i == ft_strlen(storage))
-		*line = ft_strnjoin((const char*)*line, (const char*)storage, i);
-	free(storage);
-	storage = NULL;
+	if (i == ft_strlen(*storage))
+	{
+		//storage[i] = '\0';
+		*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
+	}
+	free(*storage);
+	*storage = "";
 	return (0);
 }
 // set an end of file flag and send it to shipping. if (stor[i] == '\0' || flag == 1)
@@ -64,18 +67,21 @@ int		get_next_line(const int fd, char **line)
 	*line = NULL;
 	if (storage && storage[i] != '\0')
 	{
-		if ((shipping(storage, line, i, 1)) == 1)
+		if ((shipping(&storage, line, i, 1)) == 1)
 			return (1);
 	}
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 	{
 		if (ret == -1)
 			return (-1);
-		if (!storage)
-			if(!(storage = (char *)malloc(sizeof(*storage) * (ret))))
-				return (-1);
+		//if (!storage)
+		//	if(!(storage = (char *)malloc(sizeof(*storage) * (ret))))
+		//		return (-1);
+		storage = ft_strnew(ret);
+		//buf[ret] = '\0';
+		//strlcpy(storage, buf, ret);
 		ft_memcpy(storage, buf, ret);
-		if ((shipping(storage, line, i, ret)) == 1)
+		if ((shipping(&storage, line, i, ret)) == 1)
 			return (1);
 		// need to include end of file condition
 	}
