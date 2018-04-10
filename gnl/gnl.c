@@ -104,14 +104,12 @@ int	main(int ac, char **av)
 		write(2, "Failed to open file.\n", 21);
 		return (0);
 	}
-	get_next_line((const int)fd, &line);
-	write(1, line, ft_strlen(line));
-	write(1, "\n", 1);
-	get_next_line((const int)fd, &line);
-	write(1, line, ft_strlen(line));
-	write(1, "\n", 1);
-	get_next_line((const int)fd, &line);
-	write(1, line, ft_strlen(line));
-	write(1, "\n", 1);
+	while (get_next_line((const int)fd, &line))
+	{
+		write(1, line, ft_strlen(line));
+		write(1, "\n", 1);
+	}
+	close(fd);
+	free(line);
 	return (0);
 }
