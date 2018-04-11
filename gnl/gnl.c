@@ -34,26 +34,20 @@ static int	shipping(char **storage, char **line, size_t i, int ret)
 		if ((*storage)[i] == '\n' || ret == 0)
 		{
 			*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
-			//ft_memcpy(*line + ft_strlen(*line), storage, i - 1);
 			i++;
 			len = ft_strlen(*storage + i);
-			ft_memmove(*storage, *storage + i, len); //(len - 1)
+			ft_memmove(*storage, *storage + i, len);
 			(*storage)[len] = '\0';
 			return (1);
 		}
 		i++;
 	}
 	if (i == ft_strlen(*storage))
-	{
-		//storage[i] = '\0';
 		*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
-	}
-	free(*storage);
-	*storage = "";
+	ft_strdel(storage);
 	return (0);
 }
-// set an end of file flag and send it to shipping. if (stor[i] == '\0' || flag == 1)
-// The problem is with writing the end of storage into *line because storage don't end with \n
+
 int		get_next_line(const int fd, char **line)
 {
 	int		ret;
@@ -74,16 +68,10 @@ int		get_next_line(const int fd, char **line)
 	{
 		if (ret == -1)
 			return (-1);
-		//if (!storage)
-		//	if(!(storage = (char *)malloc(sizeof(*storage) * (ret))))
-		//		return (-1);
 		storage = ft_strnew(ret);
-		//buf[ret] = '\0';
-		//strlcpy(storage, buf, ret);
 		ft_memcpy(storage, buf, ret);
 		if ((shipping(&storage, line, i, ret)) == 1)
 			return (1);
-		// need to include end of file condition
 	}
 	free(storage);
 	return (0);
