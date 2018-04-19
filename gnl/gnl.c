@@ -53,51 +53,80 @@ int		get_next_line(const int fd, char **line)
 	int		ret;
 	size_t		i;
 	char		buf[BUFF_SIZE + 1];
-	static char	*storage;
+	static char	*storage[256];
 
 	i = 0;
 	if (!line)
 		return (-1);
 	*line = NULL;
-	if (storage && storage[i] != '\0')
-	{
-		if ((shipping(&storage, line, i, 1)) == 1)
+	if (storage[fd] && storage[fd][i] != '\0')
+		if ((shipping(&storage[fd], line, i, 1)) == 1)
 			return (1);
-	}
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 	{
 		if (ret == -1)
 			return (-1);
-		storage = ft_strnew(ret);
-		ft_memcpy(storage, buf, ret);
-		if ((shipping(&storage, line, i, ret)) == 1)
+		storage[fd] = ft_strnew(ret);
+		ft_memcpy(storage[fd], buf, ret);
+		if ((shipping(&storage[fd], line, i, ret)) == 1)
 			return (1);
 	}
-	free(storage);
+	ft_strdel(&storage[fd]);
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	char	*line;
-	int		fd;
+	int		fd1;
+//	int		fd2;
+//	int		fd3;
 
-	if (ac != 2)
+	if (ac < 2)
 	{
 		write(2, "usage: gnl source_file\n", 23);
 		return (0);
 	}
-	if ((fd = open(av[1], O_RDONLY)) < 0)
+	if ((fd1 = open(av[1], O_RDONLY)) < 0)
 	{
 		write(2, "Failed to open file.\n", 21);
 		return (0);
 	}
-	while (get_next_line((const int)fd, &line))
+/*	if ((fd2 = open(av[2], O_RDONLY)) < 0)
+	{
+		write(2, "Failed to open file.\n", 21);
+		return (0);
+	}
+	if ((fd3 = open(av[3], O_RDONLY)) < 0)
+	{
+		write(2, "Failed to open file.\n", 21);
+		return (0);
+	}*/
+	while (get_next_line((const int)fd1, &line))
 	{
 		write(1, line, ft_strlen(line));
 		write(1, "\n", 1);
+		ft_strdel(&line);
 	}
-	close(fd);
-	free(line);
+//	get_next_line((const int)fd2, &line);
+//	write(1, line, ft_strlen(line));
+//	write(1, "\n", 1);
+//	get_next_line((const int)fd3, &line);
+//	write(1, line, ft_strlen(line));
+//	write(1, "\n", 1);
+//	get_next_line((const int)fd1, &line);
+//	write(1, line, ft_strlen(line));
+//	write(1, "\n", 1);
+//	get_next_line((const int)fd2, &line);
+//	write(1, line, ft_strlen(line));
+//	write(1, "\n", 1);
+//	get_next_line((const int)fd3, &line);
+//	write(1, line, ft_strlen(line));
+//	write(1, "\n", 1);
+
+	close(fd1);
+//	close(fd2);
+//	close(fd3);
+	ft_strdel(&line);
 	return (0);
 }
