@@ -25,7 +25,8 @@ Make storage stuff a helper function so it can be called later in GNL
 
 static int	shipping(char **storage, char **line, size_t i, int ret)
 {
-	size_t	len;
+//	size_t	len;
+	char	*temp;
 
 	if (line[0] == '\0')
 		*line = "";
@@ -35,15 +36,21 @@ static int	shipping(char **storage, char **line, size_t i, int ret)
 		{
 			*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
 			i++;
-			len = ft_strlen(*storage + i);
-			ft_memmove(*storage, *storage + i, len);
-			(*storage)[len] = '\0';
+			temp = *storage;
+			*storage = ft_strnew(ft_strlen(*storage + i));
+			ft_strlcpy(*storage, temp + i, ft_strlen(temp + i) + 1);
+			ft_strdel(&temp);
+//			len = ft_strlen(*storage + i);
+//			ft_memmove(*storage, *storage + i, len);
+//			(*storage)[len] = '\0';
 			return (1);
 		}
 		i++;
 	}
-	if (i == ft_strlen(*storage))
-		*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
+//	if (i == ft_strlen(*storage))
+//	*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
+	*line = ft_strnew(i);
+	ft_strlcpy(*line, *storage, i);
 	ft_strdel(storage);
 	return (0);
 }
