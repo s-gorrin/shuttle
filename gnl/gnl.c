@@ -50,7 +50,7 @@ static int	shipping(char **storage, char **line, size_t i, int ret)
 //	if (i == ft_strlen(*storage))
 //	*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
 	*line = ft_strnew(i);
-	ft_strlcpy(*line, *storage, i);
+	ft_strlcpy(*line, *storage, i + 1);
 	ft_strdel(storage);
 	return (0);
 }
