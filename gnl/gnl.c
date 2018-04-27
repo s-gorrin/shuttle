@@ -34,7 +34,9 @@ static int	shipping(char **storage, char **line, size_t i, int ret)
 	{
 		if ((*storage)[i] == '\n' || ret == 0)
 		{
+			temp = *line;
 			*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
+			free(temp);
 			i++;
 			temp = *storage;
 			*storage = ft_strnew(ft_strlen(*storage + i));
