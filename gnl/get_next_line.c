@@ -1,4 +1,4 @@
-#include "hnl.h"
+#include "get_next_line.h"
 
 /*
 read through storeage until new line, or end, and memcpy that place onto line.
