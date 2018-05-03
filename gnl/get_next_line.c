@@ -34,17 +34,12 @@ static int	crane(char **storage, char **line, size_t i, char **temp)
 	*storage = ft_strnew(ft_strlen(*storage + i));
 	ft_strlcpy(*storage, *temp + i, ft_strlen(*temp + i) + 1);
 	ft_strdel(temp);
-//
-//			len = ft_strlen(*storage + i);
-//			ft_memmove(*storage, *storage + i, len);
-//			(*storage)[len] = '\0';
 	return (1);
 }
 
 static int	shipping(char **storage, char **line, size_t i, int ret)
 {
 	char	*temp;
-//	int		len;
 
 	if (line[0] == '\0')
 		*line = "";
@@ -72,8 +67,6 @@ static int	shipping(char **storage, char **line, size_t i, int ret)
 	*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
 	if (temp[0])
 		ft_strdel(&temp);
-//	*line = ft_strnew(i);
-//	ft_strlcpy(*line, *storage, i + 1);
 	ft_strdel(storage);
 	return (0);
 }
@@ -85,9 +78,9 @@ static int	dumb(char **storage)
 	return (1);
 }
 
-int		get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
-	int		ret;
+	int			ret;
 	size_t		i;
 	char		buf[BUFF_SIZE + 1];
 	static char	*storage[256];
@@ -111,7 +104,7 @@ int		get_next_line(const int fd, char **line)
 	ft_strdel(&storage[fd]);
 	return (0);
 }
-
+/*
 int	main(int ac, char **av)
 {
 	char	*line;
@@ -129,7 +122,7 @@ int	main(int ac, char **av)
 		write(2, "Failed to open file.\n", 21);
 		return (0);
 	}
-/*	if ((fd2 = open(av[2], O_RDONLY)) < 0)
+	if ((fd2 = open(av[2], O_RDONLY)) < 0)
 	{
 		write(2, "Failed to open file.\n", 21);
 		return (0);
@@ -138,7 +131,7 @@ int	main(int ac, char **av)
 	{
 		write(2, "Failed to open file.\n", 21);
 		return (0);
-	}*/
+	}
 	while (get_next_line((const int)fd1, &line))
 	{
 		ft_putendl(line);
@@ -166,3 +159,4 @@ int	main(int ac, char **av)
 	ft_strdel(&line);
 	return (0);
 }
+*/
