@@ -23,10 +23,28 @@ Use linked list (or array if that's too hard) of fd's for multiple files
 Make storage stuff a helper function so it can be called later in GNL
 */
 
+static int	crane(char **storage, char **line, size_t i, char **temp)
+{
+	*temp = *line;
+	*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
+	if ((*temp)[0])
+		ft_strdel(temp);
+	i++;
+	*temp = *storage;
+	*storage = ft_strnew(ft_strlen(*storage + i));
+	ft_strlcpy(*storage, *temp + i, ft_strlen(*temp + i) + 1);
+	ft_strdel(temp);
+//
+//			len = ft_strlen(*storage + i);
+//			ft_memmove(*storage, *storage + i, len);
+//			(*storage)[len] = '\0';
+	return (1);
+}
+
 static int	shipping(char **storage, char **line, size_t i, int ret)
 {
-//	size_t	len;
 	char	*temp;
+//	int		len;
 
 	if (line[0] == '\0')
 		*line = "";
@@ -34,27 +52,37 @@ static int	shipping(char **storage, char **line, size_t i, int ret)
 	{
 		if ((*storage)[i] == '\n' || ret == 0)
 		{
-			temp = *line;
-			*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
-			free(temp);
-			i++;
-			temp = *storage;
-			*storage = ft_strnew(ft_strlen(*storage + i));
-			ft_strlcpy(*storage, temp + i, ft_strlen(temp + i) + 1);
-			ft_strdel(&temp);
+//			temp = *line;
+//			*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
+//			ft_strdel(&temp);
+//			i++;
+//			temp = *storage;
+//			*storage = ft_strnew(ft_strlen(*storage + i));
+//			ft_strlcpy(*storage, temp + i, ft_strlen(temp + i) + 1);
+//			ft_strdel(&temp);
+//
 //			len = ft_strlen(*storage + i);
 //			ft_memmove(*storage, *storage + i, len);
 //			(*storage)[len] = '\0';
-			return (1);
+			return (crane(storage, line, i, &temp));
 		}
 		i++;
 	}
-//	if (i == ft_strlen(*storage))
-//	*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
-	*line = ft_strnew(i);
-	ft_strlcpy(*line, *storage, i + 1);
+	temp = *line;
+	*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
+	if (temp[0])
+		ft_strdel(&temp);
+//	*line = ft_strnew(i);
+//	ft_strlcpy(*line, *storage, i + 1);
 	ft_strdel(storage);
 	return (0);
+}
+
+static int	dumb(char **storage)
+{
+	if (!(*storage)[0])
+		ft_strdel(storage);
+	return (1);
 }
 
 int		get_next_line(const int fd, char **line)
@@ -78,7 +106,7 @@ int		get_next_line(const int fd, char **line)
 		storage[fd] = ft_strnew(ret);
 		ft_memcpy(storage[fd], buf, ret);
 		if ((shipping(&storage[fd], line, i, ret)) == 1)
-			return (1);
+			return (dumb(&storage[fd]));
 	}
 	ft_strdel(&storage[fd]);
 	return (0);
@@ -113,8 +141,7 @@ int	main(int ac, char **av)
 	}*/
 	while (get_next_line((const int)fd1, &line))
 	{
-		write(1, line, ft_strlen(line));
-		write(1, "\n", 1);
+		ft_putendl(line);
 		ft_strdel(&line);
 	}
 //	get_next_line((const int)fd2, &line);
