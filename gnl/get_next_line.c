@@ -1,28 +1,5 @@
 #include "get_next_line.h"
 
-/*
-read through storeage until new line, or end, and memcpy that place onto line.
-If there was a newline, return that much.
-If i = strlen(stor) -> read more and concat onto storage
-keep going thoruhg store: 
-
-Only static var should be storage space.
-
-PROBABLY BEST HOW-TO:
-first: check and see if there's anything in storage
-step through storage to newline, and memcpy that amount to line
-shift place after \n to beginning of storage
-return
-if there is no storage or storage contains no newline,
-	write all of storage to line and then erase storage, then
-	read BUFF_SIZE more characters and append to storage
-	read storage again until \n and do as above. 
-	if no \n, repeat previous steps.
-Use linked list (or array if that's too hard) of fd's for multiple files
-
-Make storage stuff a helper function so it can be called later in GNL
-*/
-
 static int	crane(char **storage, char **line, size_t i, char **temp)
 {
 	*temp = *line;
@@ -37,10 +14,12 @@ static int	crane(char **storage, char **line, size_t i, char **temp)
 	return (1);
 }
 
-static int	shipping(char **storage, char **line, size_t i, int ret)
+static int	shipping(char **storage, char **line, int ret)
 {
 	char	*temp;
+	size_t	i;
 
+	i = 0;
 	if (line[0] == '\0')
 		*line = "";
 	while ((*storage)[i] != '\0')
@@ -81,16 +60,14 @@ static int	dumb(char **storage)
 int			get_next_line(const int fd, char **line)
 {
 	int			ret;
-	size_t		i;
 	char		buf[BUFF_SIZE + 1];
 	static char	*storage[256];
 
-	i = 0;
-	if (!line)
+	if (!line || fd < 0)
 		return (-1);
 	*line = NULL;
-	if (storage[fd] && storage[fd][i] != '\0')
-		if ((shipping(&storage[fd], line, i, 1)) == 1)
+	if (storage[fd] && storage[fd][0] != '\0')
+		if ((shipping(&storage[fd], line, 1)) == 1)
 			return (1);
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 	{
@@ -98,11 +75,13 @@ int			get_next_line(const int fd, char **line)
 			return (-1);
 		storage[fd] = ft_strnew(ret);
 		ft_memcpy(storage[fd], buf, ret);
-		if ((shipping(&storage[fd], line, i, ret)) == 1)
+		if ((shipping(&storage[fd], line, ret)) == 1)
 			return (dumb(&storage[fd]));
 	}
 	ft_strdel(&storage[fd]);
-	return (0);
+	if (!(*line))
+		return (0);
+	return (1);
 }
 /*
 int	main(int ac, char **av)
