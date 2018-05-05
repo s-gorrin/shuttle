@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgorrin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/04 14:18:07 by sgorrin           #+#    #+#             */
+/*   Updated: 2018/05/04 14:19:04 by sgorrin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 static int	crane(char **storage, char **line, size_t i, char **temp)
@@ -25,21 +37,7 @@ static int	shipping(char **storage, char **line, int ret)
 	while ((*storage)[i] != '\0')
 	{
 		if ((*storage)[i] == '\n' || ret == 0)
-		{
-//			temp = *line;
-//			*line = ft_strnjoin((const char*)*line, (const char*)*storage, i);
-//			ft_strdel(&temp);
-//			i++;
-//			temp = *storage;
-//			*storage = ft_strnew(ft_strlen(*storage + i));
-//			ft_strlcpy(*storage, temp + i, ft_strlen(temp + i) + 1);
-//			ft_strdel(&temp);
-//
-//			len = ft_strlen(*storage + i);
-//			ft_memmove(*storage, *storage + i, len);
-//			(*storage)[len] = '\0';
 			return (crane(storage, line, i, &temp));
-		}
 		i++;
 	}
 	temp = *line;
@@ -83,59 +81,3 @@ int			get_next_line(const int fd, char **line)
 		return (0);
 	return (1);
 }
-/*
-int	main(int ac, char **av)
-{
-	char	*line;
-	int		fd1;
-//	int		fd2;
-//	int		fd3;
-
-	if (ac < 2)
-	{
-		write(2, "usage: gnl source_file\n", 23);
-		return (0);
-	}
-	if ((fd1 = open(av[1], O_RDONLY)) < 0)
-	{
-		write(2, "Failed to open file.\n", 21);
-		return (0);
-	}
-	if ((fd2 = open(av[2], O_RDONLY)) < 0)
-	{
-		write(2, "Failed to open file.\n", 21);
-		return (0);
-	}
-	if ((fd3 = open(av[3], O_RDONLY)) < 0)
-	{
-		write(2, "Failed to open file.\n", 21);
-		return (0);
-	}
-	while (get_next_line((const int)fd1, &line))
-	{
-		ft_putendl(line);
-		ft_strdel(&line);
-	}
-//	get_next_line((const int)fd2, &line);
-//	write(1, line, ft_strlen(line));
-//	write(1, "\n", 1);
-//	get_next_line((const int)fd3, &line);
-//	write(1, line, ft_strlen(line));
-//	write(1, "\n", 1);
-//	get_next_line((const int)fd1, &line);
-//	write(1, line, ft_strlen(line));
-//	write(1, "\n", 1);
-//	get_next_line((const int)fd2, &line);
-//	write(1, line, ft_strlen(line));
-//	write(1, "\n", 1);
-//	get_next_line((const int)fd3, &line);
-//	write(1, line, ft_strlen(line));
-//	write(1, "\n", 1);
-
-	close(fd1);
-//	close(fd2);
-//	close(fd3);
-	ft_strdel(&line);
-	return (0);
-}
-*/

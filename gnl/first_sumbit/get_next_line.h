@@ -6,12 +6,12 @@
 /*   By: sgorrin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 20:18:06 by sgorrin           #+#    #+#             */
-/*   Updated: 2018/05/04 14:20:27 by sgorrin          ###   ########.fr       */
+/*   Updated: 2018/05/03 17:52:07 by snake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GNL_H
+# define GNL_H
 # include <sys/stat.h>
 # include <fcntl.h>
 # include "./libft/libft.h"
