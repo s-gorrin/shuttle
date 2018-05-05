@@ -6,7 +6,7 @@
 /*   By: sgorrin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 14:18:07 by sgorrin           #+#    #+#             */
-/*   Updated: 2018/05/04 19:32:35 by sgorrin          ###   ########.fr       */
+/*   Updated: 2018/05/05 01:47:51 by snake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			get_next_line(const int fd, char **line)
 {
 	int			ret;
 	char		buf[BUFF_SIZE + 1];
-	static char	*storage[5000];
+	static char	*storage[65535];
 
 	if (!line || fd < 0)
 		return (-1);
