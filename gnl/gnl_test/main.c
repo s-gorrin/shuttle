@@ -1,4 +1,5 @@
-#include "../get_next_fred/get_next_line.h"
+#include "../get_next_line.h"
+#include <stdio.h>
 
 static int	usage(void)
 {
@@ -11,6 +12,9 @@ int	main(int ac, char **av)
 	int		fd1;
 	int		fd2;
 	int		fd3;
+//	int		fd4;
+//	int		fd5;
+//	int		fd6;
 	char	*line1;
 	char	*line2;
 	char	*line3;
@@ -20,6 +24,9 @@ int	main(int ac, char **av)
 	fd3 = 0;
 	if (ac < 2)
 		return (usage());
+//	fd4 = open(av[4], O_RDONLY);
+//	fd5 = open(av[5], O_RDONLY);
+//	fd6 = open(av[6], O_RDONLY);
 	if ((fd1 = open(av[1], O_RDONLY)) < 0)
 	{
 		write(2, "Failed to open file.\n", 21);
@@ -31,7 +38,7 @@ int	main(int ac, char **av)
 			write(2, "Failed to open file.\n", 21);
 			return (0);
 		}
-	if (ac == 4)
+	if (ac >= 4)
 		if ((fd3 = open(av[3], O_RDONLY)) < 0)
 		{
 			write(2, "Failed to open file.\n", 21);
@@ -40,6 +47,8 @@ int	main(int ac, char **av)
 //	get_next_line((const int)fd1, &line1);
 //	ft_putendl(line1);
 //	ft_strdel(&line1);
+//	printf("%d\n%d\n%d\n%d\n%d\n%d\n", fd1, fd2, fd3, fd4, fd5, fd6);
+	printf("%d\n%d\n%d\n", fd1, fd2, fd3);
 	while (get_next_line((const int)fd1, &line1) > 0)
 	{
 		ft_putendl(line1);
@@ -62,5 +71,8 @@ int	main(int ac, char **av)
 		close(fd2);
 	if (fd3)
 		close(fd3);
+//	close(fd4);
+//	close(fd5);
+//	close(fd6);
 	return (0);
 }
