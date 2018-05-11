@@ -6,7 +6,7 @@
 /*   By: sgorrin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 14:18:07 by sgorrin           #+#    #+#             */
-/*   Updated: 2018/05/07 16:59:10 by snake            ###   ########.fr       */
+/*   Updated: 2018/05/10 20:17:38 by sgorrin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			get_next_line(const int fd, char **line)
 	char		buf[BUFF_SIZE + 1];
 	static char	*storage[MAX_FD];
 
-	if (!line || fd < 0 || fd >= MAX_FD)
+	if (!line || fd < 0 || fd > MAX_FD)
 		return (-1);
 	*line = NULL;
 	if (storage[fd] && storage[fd][0] != '\0')

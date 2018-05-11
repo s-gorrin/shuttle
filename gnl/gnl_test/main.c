@@ -48,7 +48,11 @@ int	main(int ac, char **av)
 //	ft_putendl(line1);
 //	ft_strdel(&line1);
 //	printf("%d\n%d\n%d\n%d\n%d\n%d\n", fd1, fd2, fd3, fd4, fd5, fd6);
-	printf("%d\n%d\n%d\n", fd1, fd2, fd3);
+	printf("%d\n", fd1);
+	if (fd2)
+		printf("%d\n", fd2);
+	if (fd3)
+		printf("%d\n", fd3);
 	while (get_next_line((const int)fd1, &line1) > 0)
 	{
 		ft_putendl(line1);
@@ -56,7 +60,7 @@ int	main(int ac, char **av)
 		{
 			get_next_line((const int)fd2, &line2);
 			ft_putendl(line2);
-			ft_strdel(&line3);
+			ft_strdel(&line2);
 		}
 		if (fd3)
 		{
