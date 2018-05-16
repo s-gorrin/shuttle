@@ -36,7 +36,10 @@ identify cs, flags
 when a % is found, strchr following character with string literal of flags and cs's
 call to flag/cs functions and return code to proceed
 
-
+keep alloced size variable. Write each thing to string,
+	allocating for each new thing. save contents in temp, then:
+	strdel(printme);
+	printme = (char *)malloc(sizeof(string_to_add) + prev_size);
 
 function returns number of chars printed - so fill to string and then print
 	string and return strlen?
