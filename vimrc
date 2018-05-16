@@ -33,28 +33,6 @@ call matchadd('ColorColumn', '\%81v', 100)
 " F-key
 map <F6> :set relativenumber!<CR>
 
-" Gets standard function prototype
-function s:_getproto ()
-"requires 'runtime! ftplugin/man.vim'
-    if expand("%:t") =~ '\.c$'
-        execute "normal I" . s:_signature() . "\<CR>{\<CR>}\<ESC>O\<ESC>a\<Tab>"
-    elseif expand("%:t") =~ '\.h$'
-        execute "normal I" . s:_signature() . ";"
-    endif
-endfunction
-function s:_signature ()
-    let basename = substitute(expand("%:r"), "ft_", "", "")
-    execute "Man ." basename
-    execute '/' . basename . '(\C'
-    normal "ay$k^"by$
-    execute 'q'
-    let sig = @b . @a
-    let sig = substitute(sig, basename, "ft_" . basename, "")
-    let sig = substitute(sig, '\(\w\) *\(\**ft\)', '\1\t\2', "")
-    let sig = substitute(sig, 'restrict \|;', "", "g")
-    return sig
-endfunction
-command Getproto :call s:_getproto()
 
 
 " 42 vimrc:
