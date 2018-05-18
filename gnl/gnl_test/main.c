@@ -1,4 +1,4 @@
-#include "../get_next_line.h"
+#include "../libft/libft.h"
 #include <stdio.h>
 
 static int	usage(void)
