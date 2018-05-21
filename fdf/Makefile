@@ -2,7 +2,7 @@ NAME := ignore
 
 CC := gcc
 FLAGS := -Wall -Wextra -Werror
-LIB := minilibx_macos_10.11/libmlx.a
+LIB := minilibx_macos_10.11/libmlx.a libft/libft.a
 FW := -framework OpenGL -framework AppKit
 
 BIN_DIR := objs
@@ -32,7 +32,7 @@ $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
 
 libft:
-	@cd ../libft; make
+	@cd libft; make
 
 clean:
 	@/bin/rm -rf $(BIN_DIR)
