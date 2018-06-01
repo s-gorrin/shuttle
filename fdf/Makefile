@@ -8,7 +8,7 @@ FW := -framework OpenGL -framework AppKit
 BIN_DIR := objs
 
 # Files names
-FILES += main
+FILES += main fdf_line
 BIN := $(addsuffix .o,$(FILES))
 
 OBJS := $(addprefix $(BIN_DIR)/,$(BIN))
