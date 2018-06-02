@@ -2,10 +2,10 @@
 
 void	draw(t_env *env, int x, int y)
 {
-	ft_bzero(env->img_data, (HEIGHT * WIDTH * sizeof(int)));
 	// make new image
 	mlx_clear_window(env->mlx_ptr, env->window);
 	mlx_put_image_to_window(env->mlx_ptr, env->window, env->image, x, y);
+	ft_bzero(env->img_data, (HEIGHT * WIDTH * sizeof(int)));
 }
 
 int	handle_mouse(int button, int x, int y, void *param)
@@ -34,16 +34,25 @@ int	handle_mouse(int button, int x, int y, void *param)
 
 int handle_key(int key, t_env *env)
 {
-	t_points pix;
+	t_points	pix;
+	static int	y;
 
-	pix.x0 = 100;
-	pix.y0 = 400;
-	pix.x1 = 400;
-	pix.y1 = 400;
+	pix.x0 = 0;
+	pix.y0 = 0;
+	pix.x1 = 500;
+	pix.y1 = 0;
 	if (key == 0x35)
 		exit(0);
 	if (key == 0x1)
+	{
 		line(env, &pix);
+		draw(env, 0, y += 5);
+	}
+	if (key == 0xD)
+	{
+		line(env, &pix);
+		draw(env, 0, y -= 5);
+	}
 	return (key);
 }
 
@@ -74,6 +83,7 @@ int	main(int ac, char **av)
 	input.y0 = ft_atoi(av[4]);
 	input.y1 = ft_atoi(av[5]);
 	line(&env, &input);
+	draw(&env, 1, 1);
 //	mlx_string_put(env.mlx_ptr, env.window, 100, 100, 0x9eb3d6, "string");
 	// Mouse and Key hooks:
 	mlx_mouse_hook(env.window, handle_mouse, (void *)0);

@@ -10,7 +10,7 @@ static void	ortho_line(t_env *env, t_points *pix)
 		inc = (pix->y0 < pix->y1) ? 1 : -1;
 		while (pix->y0 != pix->y1)
 		{
-			mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
+//			mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
 			env->img_data[pix->x0 + (pix->y0 * WIDTH)] = GREEN;
 			pix->y0 += inc;
 		}
@@ -20,7 +20,7 @@ static void	ortho_line(t_env *env, t_points *pix)
 		inc = (pix->x0 < pix->x1) ? 1 : -1;
 		while (pix->x0 != pix->x1)
 		{
-			mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
+//			mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
 			env->img_data[pix->x0 + (pix->y0 * WIDTH)] = GREEN;
 			pix->x0 += inc;
 		}
@@ -40,7 +40,7 @@ void	   line(t_env *env, t_points *pix)
 	line.err = (line.dx > line.dy ? line.dx : -line.dy ) / 2;
 	while (pix->x0 != pix->x1 && pix->y0 != pix->y1)
 	{
-		mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
+//		mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
 		env->img_data[pix->x0 + (pix->y0 * WIDTH)] = GREEN;
 		line.e2 = line.err;
 		if (line.e2 > -line.dx)

@@ -23,6 +23,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "\n\033[32m[ ᕦ(ˇò_ó)ᕤ object files created ᕦ(ò_óˇ)ᕤ ]\033[0m"
+	@make -C libft
 	@$(CC) $(FLAGS) $(FW) $(OBJS) $(LIB) -o $(NAME)
 	@echo "\033[36m[ (^-^)/ executable \033[35m$(NAME)\033[35m \033[36mcreated \(^-^) ]\033[0m"
 
@@ -30,9 +31,6 @@ $(OBJS): | $(BIN_DIR)
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
-
-libft:
-	@cd libft; make
 
 clean:
 	@/bin/rm -rf $(BIN_DIR)
