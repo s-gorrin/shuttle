@@ -1,13 +1,5 @@
 #include "fdf.h"
 
-void	draw(t_env *env, int x, int y)
-{
-	// make new image
-	mlx_clear_window(env->mlx_ptr, env->window);
-	mlx_put_image_to_window(env->mlx_ptr, env->window, env->image, x, y);
-	ft_bzero(env->img_data, (HEIGHT * WIDTH * sizeof(int)));
-}
-
 int	handle_mouse(int button, int x, int y, void *param)
 {
 	int count;
@@ -32,29 +24,7 @@ int	handle_mouse(int button, int x, int y, void *param)
 	return (count);
 }
 
-int handle_key(int key, t_env *env)
-{
-	t_points	pix;
-	static int	y;
-
-	pix.x0 = 0;
-	pix.y0 = 0;
-	pix.x1 = 500;
-	pix.y1 = 0;
-	if (key == 0x35)
-		exit(0);
-	if (key == 0x1)
-	{
-		line(env, &pix);
-		draw(env, 0, y += 5);
-	}
-	if (key == 0xD)
-	{
-		line(env, &pix);
-		draw(env, 0, y -= 5);
-	}
-	return (key);
-}
+//todo: write "set env" function
 
 int	main(int ac, char **av)
 {

@@ -28,6 +28,16 @@ typedef struct	s_points
 	int			y1;
 }				t_points;
 
+typedef struct	s_grid
+{
+	int			tlx;	//top left x
+	int			tly;	//top left y
+	int			brx;	//bottom right x
+	int			bry;	//bottom right y
+	int			scale;	//spacing between lines
+	int			rot;	//rotation of grid
+}				t_grid;
+
 typedef struct	s_line
 {
 	int			dx;
@@ -39,5 +49,7 @@ typedef struct	s_line
 }				t_line;
 
 void			line(t_env *env, t_points *pix);
+int				handle_key(int key, t_env *env);
+void			draw(t_env *env, int x, int y);
 
 #endif
