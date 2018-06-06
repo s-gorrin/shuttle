@@ -2,7 +2,7 @@
 
 static void	ortho_line(t_env *env, t_points *pix)
 {
-	int	inc;
+	int	inc; //incriment direction
 
 	inc = 1;
 	if (pix->x0 == pix->x1)

@@ -6,6 +6,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # define GREEN 0x2eb82e
+# define LAV 0xaa99ee
 # define WIDTH 500
 # define HEIGHT 500
 
@@ -35,7 +36,8 @@ typedef struct	s_grid
 	int			brx;	//bottom right x
 	int			bry;	//bottom right y
 	int			scale;	//spacing between lines
-	int			rot;	//rotation of grid
+	//rotation of grid
+	//angle
 }				t_grid;
 
 typedef struct	s_line

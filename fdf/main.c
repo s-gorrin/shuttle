@@ -24,43 +24,66 @@ int	handle_mouse(int button, int x, int y, void *param)
 	return (count);
 }
 
-//todo: write "set env" function
-
-int	main(int ac, char **av)
+static t_env	set_env(void)
 {
-	t_env		env;
-	t_points	input;
-	int			height;
-	int			width;
+	t_env	env;
 
-	height = 64;
-	width = 64;
+	//env = malloc(sizeof(t_env));
 	env.bpp = 32;
 	env.size_line = WIDTH;
 	env.endian = 1;
+	env.mlx_ptr = mlx_init();
+	env.window = mlx_new_window(env.mlx_ptr, WIDTH, HEIGHT, "window");
+	env.image = mlx_new_image(env.mlx_ptr, WIDTH, HEIGHT);
+	env.img_data = (int *)mlx_get_data_addr(env.image, &env.bpp,
+		&env.size_line, &env.endian);
+	return (env);
+}
+
+int	main(int ac, char **av)
+{
+	t_env	env;
+	int		fd;
+	char	*line;
+	int		x;
+	int		i;
+
+	x = 0;
+	i = 0;
 	if (ac < 2)
 	{
 		write(1, "Too few arguments.\n", 19);
 		return (0);
 	}
-	env.mlx_ptr = mlx_init();
-	env.window = mlx_new_window(env.mlx_ptr, WIDTH, HEIGHT, av[1]);
-	env.image = mlx_new_image(env.mlx_ptr, WIDTH, HEIGHT);
-	env.img_data = (int *)mlx_get_data_addr(env.image, &env.bpp, &env.size_line, &env.endian);
+	//todo: read file, get number of points on first line
+	//		get number of lines, add values to t_env
+	//		draw grid based on file data
 
-	input.x0 = ft_atoi(av[2]);
-	input.x1 = ft_atoi(av[3]);
-	input.y0 = ft_atoi(av[4]);
-	input.y1 = ft_atoi(av[5]);
-	line(&env, &input);
-	draw(&env, 1, 1);
+	if (!(fd = open(av[1], O_RDONLY)))
+	{
+		ft_putstr("failed to open\n");
+		return (0);
+	}
+	while (get_next_line(fd, &line))
+	{
+		while (line[i])
+		{
+			while (line[x] != ' ')
+			{
+				env.img_data[x + (i * WIDTH)] = LAV;
+				x++;
+			}
+			i++;
+		}
+		draw(&env, 0, 0);
+		ft_putstr(line);
+		ft_putchar('\n');
+	}
+	env = set_env(); //populate enviroment struct
 //	mlx_string_put(env.mlx_ptr, env.window, 100, 100, 0x9eb3d6, "string");
 	// Mouse and Key hooks:
 	mlx_mouse_hook(env.window, handle_mouse, (void *)0);
 	mlx_key_hook(env.window, handle_key, &env);
-
-	// Debugging.
-	ft_putstr("got to the 1st place\n");
 
 	// Putting image to env.window:
 
@@ -71,8 +94,6 @@ int	main(int ac, char **av)
 
 	// Line
 
-	ft_putstr("got to the 2nd place\n");
-	ft_putstr("got to the 4th place\n");
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }

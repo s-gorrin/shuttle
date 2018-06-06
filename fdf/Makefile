@@ -17,7 +17,7 @@ $(BIN_DIR)/%.o: %.c
 	@$(CC) $(FLAGS) -I . -c $^ -o $@
 	@/bin/echo -n "#"
 
-.PHONY: clean fclean re
+.PHONY: debug clean fclean re
 
 all: $(NAME)
 
@@ -39,6 +39,12 @@ clean:
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@echo "\033[31m[executable \033[35m$(NAME)\033[0m \033[31mdeleted]\033[0m"
+
+debug: $(OBJS)
+	@echo "\n\033[32m[ ᕦ(ˇò_ó)ᕤ object files created ᕦ(ò_óˇ)ᕤ ]\033[0m"
+	@/bin/rm -f rm $@
+	@$(CC) -g $(FLAGS) $(FW) $(OBJS) $(LIB) -o $(NAME)
+	@echo "debug executable created"
 
 re: fclean all
 
