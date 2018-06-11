@@ -8,7 +8,9 @@ FW := -framework OpenGL -framework AppKit
 BIN_DIR := objs
 
 # Files names
-FILES += main	fdf_line	fdf_key		fdf_draw
+FILES += main	fdf_line	fdf_key		fdf_draw	\
+		 fdf_wc	fdf_input
+DEBUG := $(addsuffix .c,$(FILES))
 BIN := $(addsuffix .o,$(FILES))
 
 OBJS := $(addprefix $(BIN_DIR)/,$(BIN))
@@ -34,17 +36,16 @@ $(BIN_DIR):
 
 clean:
 	@/bin/rm -rf $(BIN_DIR)
-	@echo "\033[31m[object files deleted]\033[0m"
+	@echo "\033[31m[ object files deleted ]\033[0m"
 
 fclean: clean
-	@/bin/rm -f $(NAME)
-	@echo "\033[31m[executable \033[35m$(NAME)\033[0m \033[31mdeleted]\033[0m"
+	@/bin/rm -rf $(NAME) $(NAME).dSYM
+	@echo "\033[31m[ executable \033[35m$(NAME)\033[0m \033[31mdeleted ]\033[0m"
 
-debug: $(OBJS)
-	@echo "\n\033[32m[ ᕦ(ˇò_ó)ᕤ object files created ᕦ(ò_óˇ)ᕤ ]\033[0m"
+debug: 
 	@/bin/rm -f rm $@
-	@$(CC) -g $(FLAGS) $(FW) $(OBJS) $(LIB) -o $(NAME)
-	@echo "debug executable created"
+	@$(CC) -g $(FLAGS) $(FW) $(DEBUG) $(LIB) -o $(NAME)
+	@echo "[ debug executable created ]"
 
 re: fclean all
 

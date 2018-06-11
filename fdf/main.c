@@ -40,23 +40,26 @@ static t_env	set_env(void)
 	return (env);
 }
 
+int	fdf_error(void)
+{
+	ft_putstr("Could not proceed.\n");
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_env	env;
 	int		fd;
-	char	*line;
-	int		x;
-	int		i;
 
-	x = 0;
-	i = 0;
 	if (ac < 2)
 	{
 		write(1, "Too few arguments.\n", 19);
 		return (0);
 	}
-	//todo: read file, get number of points on first line
-	//		get number of lines, add values to t_env
+	env = set_env(); //populate enviroment struct
+
+	//todo: read file, get number of points on first line -done
+	//		get number of lines (y), add values to t_env
 	//		draw grid based on file data
 
 	if (!(fd = open(av[1], O_RDONLY)))
@@ -64,22 +67,8 @@ int	main(int ac, char **av)
 		ft_putstr("failed to open\n");
 		return (0);
 	}
-	while (get_next_line(fd, &line))
-	{
-		while (line[i])
-		{
-			while (line[x] != ' ')
-			{
-				env.img_data[x + (i * WIDTH)] = LAV;
-				x++;
-			}
-			i++;
-		}
-		draw(&env, 0, 0);
-		ft_putstr(line);
-		ft_putchar('\n');
-	}
-	env = set_env(); //populate enviroment struct
+	read_in(&env, fd); //reading map happens here. Returns *something*
+	draw(&env, 0, 0);
 //	mlx_string_put(env.mlx_ptr, env.window, 100, 100, 0x9eb3d6, "string");
 	// Mouse and Key hooks:
 	mlx_mouse_hook(env.window, handle_mouse, (void *)0);

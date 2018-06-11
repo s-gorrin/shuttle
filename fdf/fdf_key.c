@@ -10,7 +10,6 @@ int	fdf_grid(t_env *env, t_grid *grid)
 	pix.y0 = grid->tly; //100
 	pix.x1 = grid->brx; //400
 	pix.y1 = grid->tly; //100
-
 	while (pix.y1 <= grid->bry)
 	{
 		line(env, &pix);

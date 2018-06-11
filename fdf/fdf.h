@@ -10,6 +10,13 @@
 # define WIDTH 500
 # define HEIGHT 500
 
+typedef struct	s_node
+{
+	float		x;
+	float		y;
+	float		z;
+}				t_node;
+
 typedef struct	s_env
 {
 	void		*mlx_ptr;
@@ -53,5 +60,7 @@ typedef struct	s_line
 void			line(t_env *env, t_points *pix);
 int				handle_key(int key, t_env *env);
 void			draw(t_env *env, int x, int y);
+int				wc(char const *s, char c);
+int				read_in(t_env *env, int fd);
 
 #endif
