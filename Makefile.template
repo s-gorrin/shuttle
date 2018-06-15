@@ -3,11 +3,13 @@ NAME := executable_name
 CC := gcc
 FLAGS := -Wall -Wextra -Werror
 LIB := ../libft/libft.a
+FW := #frameworks
 
 BIN_DIR := objs
 
 # Files names
-FILES +=	list	of		files
+FILES +=	#list	of		files
+DEBUG := $(addsuffix .c,$(FILES))
 BIN := $(addsuffix .o,$(FILES))
 
 OBJS := $(addprefix $(BIN_DIR)/,$(BIN))
@@ -16,7 +18,7 @@ $(BIN_DIR)/%.o: %.c
 	@$(CC) $(FLAGS) -I . -c $^ -o $@
 	@/bin/echo -n "#"
 
-.PHONY: clean fclean re
+.PHONY: debug clean fclean re
 
 all: $(NAME)
 
@@ -40,5 +42,9 @@ clean:
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@echo "\033[31m[executable \033[35m$(NAME)\033[0m \033[31mdeleted]\033[0m"
+
+debug: fclean
+	@$(CC) -g $(FLAGS) $(FW) $(DEBUG) $(LIB) -o $(NAME)
+	@echo "[ debug executable created ]"
 
 re: fclean all
