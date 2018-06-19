@@ -7,8 +7,8 @@
 # include <fcntl.h>
 # define GRN 0x2eb82e
 # define LAV 0xaa99ee
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 700
+# define HEIGHT 700
 
 typedef struct	s_node
 {
