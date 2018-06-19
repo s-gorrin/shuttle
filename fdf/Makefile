@@ -9,7 +9,7 @@ BIN_DIR := objs
 
 # Files names
 FILES += main	fdf_line	fdf_key		fdf_draw	\
-		 fdf_wc	fdf_input
+		 fdf_wc	fdf_input	fdf_grid
 DEBUG := $(addsuffix .c,$(FILES))
 BIN := $(addsuffix .o,$(FILES))
 
@@ -42,9 +42,8 @@ fclean: clean
 	@/bin/rm -rf $(NAME) $(NAME).dSYM
 	@echo "\033[31m[ executable \033[35m$(NAME)\033[0m \033[31mdeleted ]\033[0m"
 
-debug: 
-	@/bin/rm -f rm $@
-	@$(CC) -g $(FLAGS) $(FW) $(DEBUG) $(LIB) -o $(NAME)
+debug: fclean
+	@$(CC) -g -fsanitize=address $(FLAGS) $(FW) $(DEBUG) $(LIB) -o $(NAME)
 	@echo "[ debug executable created ]"
 
 re: fclean all

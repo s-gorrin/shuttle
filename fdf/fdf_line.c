@@ -11,7 +11,7 @@ static void	ortho_line(t_env *env, t_points *pix)
 		while (pix->y0 != pix->y1)
 		{
 //			mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
-			env->img_data[pix->x0 + (pix->y0 * WIDTH)] = GREEN;
+			env->img_data[pix->x0 + (pix->y0 * WIDTH)] = env->color;
 			pix->y0 += inc;
 		}
 	}
@@ -21,7 +21,7 @@ static void	ortho_line(t_env *env, t_points *pix)
 		while (pix->x0 != pix->x1)
 		{
 //			mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
-			env->img_data[pix->x0 + (pix->y0 * WIDTH)] = GREEN;
+			env->img_data[pix->x0 + (pix->y0 * WIDTH)] = env->color;
 			pix->x0 += inc;
 		}
 	}
@@ -41,7 +41,7 @@ void	   line(t_env *env, t_points *pix)
 	while (pix->x0 != pix->x1 && pix->y0 != pix->y1)
 	{
 //		mlx_pixel_put(env->mlx_ptr, env->window, pix->x0, pix->y0, GREEN);
-		env->img_data[pix->x0 + (pix->y0 * WIDTH)] = GREEN;
+		env->img_data[pix->x0 + (pix->y0 * WIDTH)] = env->color;
 		line.e2 = line.err;
 		if (line.e2 > -line.dx)
 		{

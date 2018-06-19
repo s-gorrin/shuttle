@@ -1,4 +1,5 @@
 #include "fdf.h"
+#include <stdio.h>
 
 int	handle_mouse(int button, int x, int y, void *param)
 {
@@ -11,7 +12,7 @@ int	handle_mouse(int button, int x, int y, void *param)
 		return (0);
 	else if (button == 2)
 		write(1, "rclick\n", 7);
-	else
+	/*else
 	{
 		count++;
 		if (x < 100 && y < 100)
@@ -20,6 +21,13 @@ int	handle_mouse(int button, int x, int y, void *param)
 			write(1, "middle\n", 7);
 		else
 			ft_putchar('x');
+	}*/
+	else
+	{
+		ft_putstr(" click: x = ");
+		ft_putnbr(x);
+		ft_putstr(" y = ");
+		ft_putnbr(y);
 	}
 	return (count);
 }
@@ -67,8 +75,8 @@ int	main(int ac, char **av)
 		ft_putstr("failed to open\n");
 		return (0);
 	}
-	read_in(&env, fd); //reading map happens here. Returns *something*
-	draw(&env, 0, 0);
+	read_input(av[1]); //reading map happens here. Returns **map
+//	draw(&env, 0, 0);
 //	mlx_string_put(env.mlx_ptr, env.window, 100, 100, 0x9eb3d6, "string");
 	// Mouse and Key hooks:
 	mlx_mouse_hook(env.window, handle_mouse, (void *)0);
@@ -91,3 +99,5 @@ int	main(int ac, char **av)
 //todo: learn how to draw. Do I need to write drawing functions?
 // going to need structs to store coordinates, etc
 // use macros for color pallet
+
+//todo: free function (see mallocs in "read_input")
