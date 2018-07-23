@@ -1,5 +1,5 @@
 #include "fdf.h"
-#include <stdio.h>
+#include <stdio.h> //PRINTFS IN THIS FILE
 
 /*static void			initialize(int *i, int *x, int *y)
 {
@@ -56,7 +56,7 @@ t_node				*read_input(char *filename)
 	char		*line; // line of the read in
 
 	data = prechecker(filename);
-	if (!(map = malloc(sizeof(t_node) * (data.y * data.x))))
+	if (!(map = malloc(sizeof(t_node) * ((data.y + 1) * (data.x + 1)))))
 		pre_error(3);
 	printf("malloc'd the good size: %d\n", data.x * data.y); // PRINTF
 	save = map; // BRUK?
@@ -65,6 +65,8 @@ t_node				*read_input(char *filename)
 	{
 		while (*line != '\0')
 		{
+			// printf("%s\n", line); // PRINTF
+			printf("."); // PRINTF
 			while (ft_isspace(*line))
 				line++;
 			map->x = data.mx;
@@ -77,6 +79,7 @@ t_node				*read_input(char *filename)
 			data.mx++;
 			map++;
 		}
+		printf("\n"); // PRINTF
 		data.mx = 0;
 		data.my++;
 	}

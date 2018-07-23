@@ -8,7 +8,7 @@
 # define GRN 0x2eb82e
 # define LAV 0xaa99ee
 # define WIDTH 700
-# define HEIGHT 700
+# define HEIGHT 500
 
 typedef struct	s_node
 {
@@ -58,6 +58,9 @@ typedef struct	s_grid
 	int			y_scale;	//spacing between y points
 	//rotation of grid
 	//angle
+	// int			last_x;
+	// int			last_y;
+	// int			spacing;
 }				t_grid;
 
 typedef struct	s_line

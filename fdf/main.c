@@ -3,7 +3,8 @@
 
 int	handle_mouse(int button, int x, int y, void *param)
 {
-	int count;
+	int			count;
+	static int	i;
 
 	count = 0;
 	if (!button || param)
@@ -24,10 +25,13 @@ int	handle_mouse(int button, int x, int y, void *param)
 	}*/
 	else
 	{
-		ft_putstr(" click: x = ");
+		ft_putstr(" click ");
+		ft_putnbr(i);
+		ft_putstr(": x = ");
 		ft_putnbr(x);
 		ft_putstr(" y = ");
 		ft_putnbr(y);
+		i++;
 	}
 	return (count);
 }

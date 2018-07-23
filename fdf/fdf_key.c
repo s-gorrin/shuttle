@@ -66,11 +66,13 @@ int	handle_key(int key, t_env *env)
 	}*/
 	if (key == 0x5)
 	{
+		// have: top-most y, right-most x, etc
+		// tlx, tyl will always be 0, so don't need them
 		grid.tlx = 0;
 		grid.tly = 0;
 		grid.brx = 10;
 		grid.bry = 10;
-		grid.x_scale = (WIDTH - (WIDTH * 0.2)) / (grid.brx - 1);
+		grid.x_scale = (HEIGHT - (HEIGHT * 0.2)) / (grid.brx - 1);
 		grid.y_scale = (HEIGHT - (HEIGHT * 0.2)) / (grid.bry - 1);
 		point_grid(env, &grid);
 		draw(env, 0, 0);
